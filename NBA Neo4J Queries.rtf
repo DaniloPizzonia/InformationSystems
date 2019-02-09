@@ -1,0 +1,55 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fmodern\fcharset0 CourierNewPSMT;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl320\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+DELETE RELATIONSHIP:\
+MATCH ()-[rel:DEFICITAFTER3QTRS]-()\
+DELETE rel\
+CREATE RELATIONS WITH NODE-IDS\
+MATCH (s08:standings), (s14:standings)\
+WHERE ID(s08) = 33 AND ID(s14) = 34\
+CREATE (s08)-[rel:WINDIFFERENCE\{winDeficit: 8\}]->(s14)\
+RETURN type(rel)\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+QUERY USE CASE 1\
+MATCH (m:Match\{matchID: '0486'\})<-[rel:JUMPSHOT\{\}]-(e:Event\{PlayerID: '320'\})\
+RETURN rel, m, e\
+MATCH (m:Match\{matchID: '0486'\})<-[rel:JUMPSHOT\{\}]-(e:Event\{PlayerID: '320'\})\
+RETURN avg(e.PointsMade), count(*)\
+MATCH (m:Match\{matchID: '0486'\})<-[rel:DRIVETOTHEBASKET\{\}]-(e:Event\{PlayerID: '320'\})\
+RETURN avg(e.PointsMade), count(*)\
+QUERY USE CASE 2\
+MATCH (p:Player), (b:BackToBack)\
+WHERE b.matchID1 = '0486' AND b.matchID2 = '0489' AND b.specialcase = 'B2B'\
+RETURN p, b\
+ORDER BY p.PointsMade DESC\
+QUERY USE CASE 3\
+MATCH (Match\{matchID: '0490'\})--(p)\
+WHERE p.AttemptsTotal IS NOT NULL\
+RETURN p, 100 * (p.AttemptsMade) / (p.AttemptsTotal) AS percentage\
+ORDER BY percentage DESC\
+QUERY USE CASE 4\
+MATCH (m:Match) - [rel:DEFICITAFTER3QTRS] - (r:result)\
+WHERE rel.deficitAwayMinusHome = -40\
+RETURN m, rel, r\
+MATCH (m:Match) - [rel:DEFICITAFTER3QTRS] - (r:result)\
+WHERE rel.deficitAwayMinusHome IS NOT NULL\
+RETURN m, rel, r\
+QUERY USE CASE 5\
+MATCH(n)\
+WHERE n.teamID = '12' AND n.seasonID = '20182019'\
+RETURN(n.currentStanding)\
+MATCH(n)\
+WHERE n.currentStanding = 14\
+RETURN(n)\
+MATCH(n)\
+WHERE n.teamID = '12' AND n.seasonID = '20172018'\
+RETURN(n)\
+SHOW ALL\
+MATCH(n)\
+RETURN(n) \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97}
